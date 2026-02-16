@@ -1,11 +1,10 @@
 from http import HTTPStatus
 
+from basic_deploy.app import bcrypt
+from basic_deploy.controllers.utils import requires_role
+from basic_deploy.models import Role, User, db
 from flask import Blueprint, request
 from flask_jwt_extended import jwt_required
-
-
-from basic_deploy.controllers.utils import requires_role
-from basic_deploy.models.models import User, db
 
 app = Blueprint("user", __name__, url_prefix="/users")
 
@@ -14,7 +13,7 @@ def _create_user():
     data = request.json
     user = User(
         username=data["username"],
-        password=data["password"],
+        password=bcrypt.generate_password_hash(data["password"]),
         role_id=data["role_id"],
     )
 
@@ -39,17 +38,17 @@ def _list_users():
     ]
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET"])
 @jwt_required()
 @requires_role("admin")
-def list_or_create_user():
-
-    if request.method == "POST":
-        _create_user()
-        return {"message": "user created!"}, HTTPStatus.CREATED
-    else:
-        pass
+def list_users():
     return {"users": _list_users()}
+
+
+@app.route("/", methods=["POST"])
+def create_users():
+    _create_user()
+    return {"message": "user created!"}, HTTPStatus.CREATED
 
 
 @app.route("/<int:user_id>")
@@ -72,7 +71,6 @@ def update_user(user_id):
         user.username = data["username"]
         db.session.commit()
 
-    []
     return {
         "id": user.id,
         "username": user.username,

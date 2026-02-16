@@ -1,35 +1,26 @@
 import os
 
-from flask import Flask
+from basic_deploy.models.base import db
+from flask import Flask, json
+from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
+from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
-
-from basic_deploy.models.models import db
+from werkzeug.exceptions import HTTPException
 
 migrate = Migrate()
 jwt = JWTManager()
+bcrypt = Bcrypt()
+ma = Marshmallow()
 
 
-def create_app(test_config=None):
+def create_app(environment=os.environ["ENVIRONMENT"]):
     app = Flask(
         __name__,
         instance_path=os.path.join(os.path.dirname(__file__), "instance"),
         instance_relative_config=False,
     )
-
-    database_url = os.environ.get("DATABASE_URL")
-
-    app.config.from_mapping(
-        SECRET_KEY=os.environ.get("SECRET_KEY", "dev"),
-        JWT_SECRET_KEY=os.environ.get("JWT_SECRET_KEY", "dev"),
-        SQLALCHEMY_DATABASE_URI=database_url
-        or "sqlite:///" + os.path.join(app.instance_path, "dio_bank.sqlite"),
-    )
-
-    if test_config is None:
-        app.config.from_pyfile("config.py", silent=True)
-    else:
-        app.config.from_mapping(test_config)
+    app.config.from_object(f"basic_deploy.config.{environment.title()}Config")
 
     try:
         os.makedirs(app.instance_path)
@@ -39,12 +30,28 @@ def create_app(test_config=None):
     db.init_app(app)
     migrate.init_app(app, db)
     jwt.init_app(app)
+    bcrypt.init_app(app)
+    ma.init_app(app)
+
     from basic_deploy.controllers import auth, post, role, user
 
     app.register_blueprint(post.app)
     app.register_blueprint(user.app)
     app.register_blueprint(auth.app)
     app.register_blueprint(role.app)
+
+    @app.errorhandler(HTTPException)
+    def handle_exception(a):
+        response = a.get_response()
+        response.data = json.dumps(
+            {
+                "Code:": a.code,
+                "Descrição:": a.description,
+                "Nome:": a.name,
+            }
+        )
+        response.content_type = "application/json"
+        return response
 
     return app
 

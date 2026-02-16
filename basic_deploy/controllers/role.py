@@ -1,8 +1,7 @@
 from http import HTTPStatus
 
+from basic_deploy.models import Role, db
 from flask import Blueprint, request
-
-from basic_deploy.models.models import Role, db
 
 app = Blueprint("role", __name__, url_prefix="/roles")
 
@@ -23,6 +22,7 @@ def list_role():
     return [
         {
             "name": role.name,
+            "id": role.id,
         }
         for role in roles
     ]

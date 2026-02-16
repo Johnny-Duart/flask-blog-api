@@ -1,9 +1,8 @@
 from functools import wraps
 from http import HTTPStatus
 
+from basic_deploy.models import User, db
 from flask_jwt_extended import get_jwt_identity
-
-from basic_deploy.models.models import User, db
 
 
 def requires_role(role_name):
@@ -15,7 +14,7 @@ def requires_role(role_name):
 
             if user.role.name != role_name:
                 return {
-                    "message": "User dont have acess"
+                    "message": "Usuario nao tem acesso"
                 }, HTTPStatus.FORBIDDEN
             return f(*args, **kwargs)
 
