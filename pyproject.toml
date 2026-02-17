@@ -21,7 +21,8 @@ dependencies = [
     "gunicorn (>=24.1.1,<25.0.0)",
     "waitress (>=3.0.2,<4.0.0)",
     "flask-bcrypt",
-    "flask-marshmallow"
+    "flask-marshmallow",
+    "marshmallow-sqlalchemy (>=1.4.2,<2.0.0)"
 ]
 
 [build-system]

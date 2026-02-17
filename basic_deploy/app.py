@@ -6,6 +6,7 @@ from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from werkzeug.exceptions import HTTPException
 
 migrate = Migrate()
@@ -21,7 +22,8 @@ def create_app(environment=os.environ["ENVIRONMENT"]):
         instance_relative_config=False,
     )
     app.config.from_object(f"basic_deploy.config.{environment.title()}Config")
-
+    app.json.sort_keys = False
+    
     try:
         os.makedirs(app.instance_path)
     except OSError:
@@ -58,5 +60,4 @@ def create_app(environment=os.environ["ENVIRONMENT"]):
 
 if __name__ == "__main__":
     app = create_app()
-    app.run()
     app.run()
