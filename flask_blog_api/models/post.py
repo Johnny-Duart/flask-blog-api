@@ -1,8 +1,9 @@
 from datetime import datetime
 
 import sqlalchemy as sa
-from basic_deploy.models.base import db
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from flask_blog_api.models.base import db
 
 
 class Post(db.Model):
@@ -16,4 +17,5 @@ class Post(db.Model):
     user: Mapped["User"] = relationship(back_populates="post")
 
     def __repr__(self) -> str:
+        return f"Post(id={self.id!r}), title={self.title!r}, author_id={self.author_id}"
         return f"Post(id={self.id!r}), title={self.title!r}, author_id={self.author_id}"

@@ -1,7 +1,8 @@
-from basic_deploy.app import ma
-from basic_deploy.models import User
-from basic_deploy.views.role import RoleSchema
 from marshmallow import fields
+
+from flask_blog_api.app import ma
+from flask_blog_api.models import User
+from flask_blog_api.views.role import RoleSchema
 
 
 class UserSchema(ma.SQLAlchemyAutoSchema):
@@ -15,6 +16,10 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
     role = ma.Nested(RoleSchema)
 
 
+class UpdateUserParameter(ma.Schema):
+    user_id = fields.String(required=True)
+
+
 class CreateUserSchema(ma.Schema):
     username = fields.String(required=True)
     password = fields.String(required=True)
@@ -26,4 +31,5 @@ class CreateUserSchema(ma.Schema):
 
 class UpdateUserSchema(ma.Schema):
     id = fields.String(required=False)
+    username = fields.String(required=False)
     username = fields.String(required=False)

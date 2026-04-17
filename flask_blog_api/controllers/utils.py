@@ -1,8 +1,9 @@
 from functools import wraps
 from http import HTTPStatus
 
-from basic_deploy.models import User, db
 from flask_jwt_extended import get_jwt_identity
+
+from flask_blog_api.models import User, db
 
 
 def requires_role(role_name):
@@ -20,4 +21,5 @@ def requires_role(role_name):
 
         return wrapped
 
+    return decorator
     return decorator

@@ -1,6 +1,7 @@
-from basic_deploy.app import ma
-from basic_deploy.models import Post
 from marshmallow import fields
+
+from flask_blog_api.app import ma
+from flask_blog_api.models import Post
 
 
 class PostSchema(ma.SQLAlchemyAutoSchema):
@@ -22,4 +23,5 @@ class CreatePostSchema(ma.Schema):
 
 class UpdatePostSchema(ma.Schema):
     title = fields.String(required=False)
+    body = fields.String(required=False)
     body = fields.String(required=False)

@@ -1,6 +1,7 @@
 import sqlalchemy as sa
-from basic_deploy.models.base import db
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from flask_blog_api.models.base import db
 
 
 class User(db.Model):
@@ -16,4 +17,5 @@ class User(db.Model):
     post: Mapped[list["Post"]] = relationship(back_populates="user")
 
     def __repr__(self) -> str:
+        return f"User(id={self.id!r}), username={self.username!r}"
         return f"User(id={self.id!r}), username={self.username!r}"

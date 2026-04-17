@@ -1,13 +1,32 @@
 from http import HTTPStatus
 
-from basic_deploy.models import Role, db
 from flask import Blueprint, request
+
+from flask_blog_api.models import Role, db
 
 app = Blueprint("role", __name__, url_prefix="/roles")
 
 
 @app.route("/", methods=["POST"])
 def create_role():
+    """
+    ---
+    post:
+      tags:
+        - Roles
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        200:
+          description: Criar cargos
+    """
     data = request.json
     role = Role(name=data["name"])
     db.session.add(role)
@@ -30,4 +49,14 @@ def list_role():
 
 @app.route("/", methods=["GET"])
 def list_roles():
+    """
+    ---
+    get:
+      tags:
+        - Roles
+      responses:
+        200:
+          description: Lista de cargos
+    """
+    return {"roles:": list_role()}
     return {"roles:": list_role()}
