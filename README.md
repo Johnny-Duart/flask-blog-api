@@ -176,16 +176,6 @@ Desenvolvido por **Jonathan Duarte**
 
 ---
 
-## 📌 Melhorias futuras
-
-* [ ] Testes automatizados
-* [ ] Deploy em produção
-* [ ] Integração com frontend
-* [ ] Paginação nos endpoints
-* [ ] Filtros de busca
-
----
-
 ## ⭐ Contribuição
 
 Sinta-se à vontade para contribuir ou sugerir melhorias!
