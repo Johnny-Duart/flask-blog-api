@@ -84,7 +84,7 @@ def create_posts():
           description: Erro de validação
     """
 
-    author_id = get_jwt_identity()
+    author_id = int(get_jwt_identity())
     response = _create_post(author_id)
     if response:
         return response
@@ -108,6 +108,7 @@ def list_post():
     return {"posts:": _list_post()}
 
 
+@jwt_required()
 @app.route("/<int:post_id>", methods=["PATCH"])
 def update_post(post_id):
     """
@@ -154,6 +155,7 @@ def update_post(post_id):
     return PostSchema().dump(post), HTTPStatus.OK
 
 
+@jwt_required()
 @app.route("/<int:post_id>", methods=["DELETE"])
 def delete_post(post_id):
     """
