@@ -19,7 +19,8 @@ bcrypt = Bcrypt()
 ma = Marshmallow()
 
 
-def create_app(environment=os.environ["ENVIRONMENT"]):
+def create_app(environment=None):
+    environment = environment or os.environ["ENVIRONMENT"]
     app = Flask(
         __name__,
         instance_path=os.path.join(os.path.dirname(__file__), "instance"),
@@ -93,5 +94,4 @@ def create_app(environment=os.environ["ENVIRONMENT"]):
 
 if __name__ == "__main__":
     app = create_app()
-    app.run()
     app.run()
