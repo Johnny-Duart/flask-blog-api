@@ -123,8 +123,8 @@ def update_user(user_id):
     if "username" in data:
         user.username = data["username"]
 
-    if "id" in data:
-        user.id = data["id"]
+    if "password" in data:
+        user.password = bcrypt.generate_password_hash(data["password"])
 
     db.session.commit()
     return UserSchema().dump(user), HTTPStatus.OK
