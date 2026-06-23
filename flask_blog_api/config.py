@@ -9,7 +9,7 @@ class Config:
     JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 
 
-class ProdutionConfig(Config):
+class ProductionConfig(Config):
     pass
 
 
@@ -17,7 +17,7 @@ class DevelopmentConfig(Config):
 
     SECRET_KEY = "dev"
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = "sqlite:///dio_bank.sqlite"
+    SQLALCHEMY_DATABASE_URI = "sqlite:///flask_blog.sqlite"
     JWT_SECRET_KEY = "super-secret"
 
 
