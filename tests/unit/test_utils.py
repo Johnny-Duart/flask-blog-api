@@ -2,13 +2,8 @@ from http import HTTPStatus
 from unittest.mock import patch
 
 import pytest
-from controllers.utils import eleva_quadrado, requires_role
 
-
-@pytest.mark.parametrize("test_input, expected", [(2, 4), (10, 100), (3, 9)])
-def test_elava_quadrado_sucesso(test_input, expected):
-    resultado = eleva_quadrado(test_input)
-    assert resultado == expected
+from flask_blog_api.controllers.utils import requires_role
 
 
 @pytest.mark.parametrize(
@@ -26,13 +21,6 @@ def test_elava_quadrado_sucesso(test_input, expected):
         ),
     ],
 )
-def test_eleva_quadrado_falha(test_input, exc_class, msg):
-    with pytest.raises(exc_class) as exc:
-        eleva_quadrado(test_input)
-    assert str(exc.value) == msg
-    assert str(exc.value) == msg
-
-
 def test_requires_role_success(mocker):
 
     # Given
@@ -63,4 +51,4 @@ def test_requires_role_fail(mocker):
 
     # Then
     assert status == HTTPStatus.FORBIDDEN
-    assert result["message"] == "User dont have acess"
+    assert result["message"] == "Usuario nao tem acesso"

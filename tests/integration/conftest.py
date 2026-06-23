@@ -1,10 +1,12 @@
 import pytest
-from basic_deploy.app import Role, User, create_app, db
+
+from flask_blog_api.app import bcrypt, create_app
+from flask_blog_api.models import Role, User, db
 
 
 @pytest.fixture
 def app():
-    app = create_app(enviroment="testing")
+    app = create_app(environment="testing")
     with app.app_context():
         db.create_all()
         yield app
@@ -21,7 +23,11 @@ def access_token(client):
     db.session.add(role)
     db.session.commit()
 
-    user = User(username="Joel", password="1234", role_id=role.id)
+    user = User(
+        username="Joel",
+        password=bcrypt.generate_password_hash("1234"),
+        role_id=role.id,
+    )
     db.session.add(user)
     db.session.commit()
 

@@ -1,6 +1,7 @@
 from http import HTTPStatus
 
-from basic_deploy.app import Role, User, db
+from flask_blog_api.app import bcrypt
+from flask_blog_api.models import Role, User, db
 
 
 def test_get_user_success(client):
@@ -8,7 +9,11 @@ def test_get_user_success(client):
     role = Role(name="admin")
     db.session.add(role)
     db.session.commit()
-    user = User(username="john", password="1234", role_id=role.id)
+    user = User(
+        username="john",
+        password=bcrypt.generate_password_hash("1234"),
+        role_id=role.id,
+    )
     db.session.add(user)
     db.session.commit()
 
@@ -40,7 +45,11 @@ def test_list_user(client):
     db.session.add(role)
     db.session.commit()
 
-    user = User(username="John", password="1234", role_id=role.id)
+    user = User(
+        username="John",
+        password=bcrypt.generate_password_hash("1234"),
+        role_id=role.id,
+    )
     db.session.add(user)
     db.session.commit()
 
