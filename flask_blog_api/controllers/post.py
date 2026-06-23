@@ -108,8 +108,8 @@ def list_post():
     return {"posts:": _list_post()}
 
 
-@jwt_required()
 @app.route("/<int:post_id>", methods=["PATCH"])
+@jwt_required()
 def update_post(post_id):
     """
     ---
@@ -155,8 +155,8 @@ def update_post(post_id):
     return PostSchema().dump(post), HTTPStatus.OK
 
 
-@jwt_required()
 @app.route("/<int:post_id>", methods=["DELETE"])
+@jwt_required()
 def delete_post(post_id):
     """
     ---

@@ -7,8 +7,9 @@ from flask_blog_api.models import Role, db
 app = Blueprint("role", __name__, url_prefix="/roles")
 
 
-@requires_role("admin")
 @app.route("/", methods=["POST"])
+@jwt_required()
+@requires_role("admin")
 def create_role():
     """
     ---
@@ -48,8 +49,8 @@ def list_role():
     ]
 
 
-@requires_role("admin")
 @app.route("/", methods=["GET"])
+@requires_role("admin")
 def list_roles():
     """
     ---
