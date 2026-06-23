@@ -7,6 +7,7 @@ from flask_blog_api.models import Role, db
 app = Blueprint("role", __name__, url_prefix="/roles")
 
 
+@requires_role("admin")
 @app.route("/", methods=["POST"])
 def create_role():
     """
@@ -47,6 +48,7 @@ def list_role():
     ]
 
 
+@requires_role("admin")
 @app.route("/", methods=["GET"])
 def list_roles():
     """
@@ -58,5 +60,4 @@ def list_roles():
         200:
           description: Lista de cargos
     """
-    return {"roles:": list_role()}
     return {"roles:": list_role()}
