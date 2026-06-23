@@ -18,4 +18,3 @@ class User(db.Model):
 
     def __repr__(self) -> str:
         return f"User(id={self.id!r}), username={self.username!r}"
-        return f"User(id={self.id!r}), username={self.username!r}"

@@ -10,4 +10,3 @@ class RoleSchema(ma.SQLAlchemyAutoSchema):
         model = Role
         fields = ("id", "name")
         load_instance = True
-        load_instance = True

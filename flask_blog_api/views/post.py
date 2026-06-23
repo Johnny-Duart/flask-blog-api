@@ -24,4 +24,3 @@ class CreatePostSchema(ma.Schema):
 class UpdatePostSchema(ma.Schema):
     title = fields.String(required=False)
     body = fields.String(required=False)
-    body = fields.String(required=False)

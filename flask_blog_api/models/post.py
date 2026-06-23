@@ -18,4 +18,3 @@ class Post(db.Model):
 
     def __repr__(self) -> str:
         return f"Post(id={self.id!r}), title={self.title!r}, author_id={self.author_id}"
-        return f"Post(id={self.id!r}), title={self.title!r}, author_id={self.author_id}"

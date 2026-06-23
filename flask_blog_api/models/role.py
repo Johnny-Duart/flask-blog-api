@@ -9,4 +9,3 @@ class Role(db.Model):
     id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
     name: Mapped[str] = mapped_column(sa.String, nullable=False)
     user: Mapped[list["User"]] = relationship(back_populates="role")
-    user: Mapped[list["User"]] = relationship(back_populates="role")
