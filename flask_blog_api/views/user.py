@@ -6,7 +6,6 @@ from flask_blog_api.views.role import RoleSchema
 
 
 class UserSchema(ma.SQLAlchemyAutoSchema):
-    role_id = fields.Integer()
 
     class Meta:
         model = User
@@ -30,6 +29,5 @@ class CreateUserSchema(ma.Schema):
 
 
 class UpdateUserSchema(ma.Schema):
-    id = fields.String(required=False)
     username = fields.String(required=False)
-    username = fields.String(required=False)
+    password = fields.String(required=False)
