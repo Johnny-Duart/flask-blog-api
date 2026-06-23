@@ -117,7 +117,7 @@ Crie um arquivo `.env` na raiz do projeto (ou exporte as variáveis no terminal)
 ENVIRONMENT=development
 SECRET_KEY=dev
 JWT_SECRET_KEY=super-secret
-DATABASE_URL=sqlite:///dio_bank.sqlite
+DATABASE_URL=sqlite:///flask_blog.sqlite
 ```
 
 > A variável `ENVIRONMENT` define qual classe de configuração será usada (`DevelopmentConfig`, `TestingConfig` ou `ProductionConfig`, em `flask_blog_api/config.py`).
